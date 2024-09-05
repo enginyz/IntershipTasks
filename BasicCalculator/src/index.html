@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basit Hesap Makinesi</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body class="bg-gray-100 flex items-center justify-center"> 
+    <div class="bg-white p-6 rounded-lg shadow-md w-80">
+        <h1 class="text-xl font-bold text-center mb-4">Basit Hesap Makinesi</h1>
+        
+        <label for="sayi1" class="block text-gray-800">Sayı 1:</label>
+        <input type="number" id="sayi1" class="w-full px-3 py-2 mb-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Bir sayı girin">
+    
+        <label for="islem" class="block text-gray-800">İşlem Seçin:</label>
+        <select  id="islem" class="w-full px-3 py-2 mb-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400">
+            <option value="topla">+</option>
+            <option value="cikar">-</option>
+            <option value="carp">*</option>
+            <option value="bol">/</option>
+            <option value="us">üs</option>
+        </select>
+    
+        <label for="sayi2" class="block text-gray-800">Sayı 2:</label>
+        <input type="number" id="sayi2" class="w-full px-3 py-2 mb-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Bir sayı girin">
+    
+        <button id="buton" class="w-full bg-blue-500 text-white font-semibold py-2 rounded-md hover:bg-blue-600 transition duration-200">Hesapla</button>
+    
+        <div id="sonuc" class="mt-4 text-center text-lg font-semibold text-gray-800"></div>
+    </div>
+    
+
+    <script>
+        function hesapla(){
+            var sayi1 = (document.getElementById("sayi1").value);
+            var sayi2 = (document.getElementById("sayi2").value);
+            var islem = (document.getElementById("islem").value);
+            var sonuc;
+
+            if (sayi1 === "" || sayi2 === "") {
+                document.getElementById("sonuc").innerHTML = "Lütfen her iki sayıyı da girin.";
+                return;
+            }
+
+            sayi1 = Number(sayi1);
+            sayi2 = Number(sayi2);
+
+            if(islem === "topla"){
+                sonuc = sayi1 + sayi2;
+            }
+            else if(islem === "cikar"){
+                sonuc = sayi1 - sayi2;
+            }
+            else if(islem === "carp"){
+                sonuc = sayi1 * sayi2;
+            }
+            else if(islem === "bol"){
+                if (sayi1 === 0 && sayi2 === 0) {
+                    document.getElementById("sonuc").innerHTML = "0/0 Belirsiz bir işlemdir!";
+                    return;
+                }
+                if (sayi2 === 0) {
+                    document.getElementById("sonuc").innerHTML = "Bir sayıyı 0'a bölemezsiniz!";
+                    return;
+                }
+                sonuc = sayi1 / sayi2;
+            }
+            else if(islem === "us"){
+                 if (sayi1 === 0 && sayi2 < 0) {
+                     document.getElementById("sonuc").innerHTML = "Tanımsız bir işlemdir!";
+                     return;
+                 }
+                sonuc = Math.pow(sayi1, sayi2);
+            }
+            else{
+                sonuc = "Gecersiz islem"
+            }
+
+            document.getElementById("sonuc").innerHTML = "Sonuç: " + sonuc;
+        }
+
+        document.getElementById("buton").onclick = hesapla;
+    </script>
+
+</body>
+</html>
